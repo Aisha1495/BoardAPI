@@ -1,11 +1,14 @@
 package Controller;
 
 import Models.Board;
+import Models.Card;
+import Response.CardResponse;
 import Service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/boards")
@@ -35,5 +38,25 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public void deleteBoard(@PathVariable String id) {
         boardService.deleteBoard(id);
+
     }
-}
+
+        @GetMapping("/{boardId}/cards")
+        public CardResponse.CardsResponse getCards(@PathVariable String boardId) {
+            List<Card> cards = cardService.getCards(boardId);
+            List<CardResponse> cardResponses = cards.stream()
+                    .map(this::convertToCardResponse)
+                    .collect(Collectors.toList());
+            return new CardResponse.CardsResponse(cardResponses);
+        }
+
+        private CardResponse convertToCardResponse(Card card) {
+            CardResponse cardResponse = new CardResponse();
+            cardResponse.setId(card.getId());
+            cardResponse.setTitle(card.getTitle());
+            cardResponse.setDescription(card.getDescription());
+            cardResponse.setSection(card.getSection());
+            return cardResponse;
+        }
+    }
+

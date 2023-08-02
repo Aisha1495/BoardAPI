@@ -18,10 +18,5 @@ public class Card extends BaseEntity{
      private String description;
      private String section;
 
-     public Card(String id, String title, String description, String section) {
-          this.id = id;
-          this.title = title;
-          this.description = description;
-          this.section = section;
-     }
+
 }

@@ -19,10 +19,6 @@ public class Board extends BaseEntity {
      private String title;
      private List<Card> cards;
 
-     public Board(String id, String title, List<Card> cards) {
-          this.id = id;
-          this.title = title;
-          this.cards = cards;
-     }
+
 
 }
