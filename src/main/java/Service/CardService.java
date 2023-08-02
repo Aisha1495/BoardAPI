@@ -11,10 +11,12 @@ import java.util.List;
 
 @Service
 public class CardService {
+    private final BoardRepository boardRepository;
     private final CardRepository cardRepository;
 
     @Autowired
-    public CardService(CardRepository cardRepository) {
+    public CardService(BoardRepository boardRepository, CardRepository cardRepository) {
+        this.boardRepository = boardRepository;
         this.cardRepository = cardRepository;
     }
 

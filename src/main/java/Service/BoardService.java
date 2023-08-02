@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class BoardService {
+
     private final BoardRepository boardRepository;
 
     @Autowired

@@ -23,7 +23,7 @@ public class CardController {
     }
 
     @PostMapping
-    public CardResponse createCard(@PathVariable String boardId, @RequestBody CreateCardRequest request) {
+    public CardResponse createCard(@PathVariable String boardId, @RequestBody CardRequest request) {
         Card card = cardService.createCard(boardId, request.getTitle(), request.getDescription(), request.getSection());
         return convertToCardResponse(card);
     }
@@ -46,7 +46,7 @@ public class CardController {
     @PutMapping("/{cardId}")
     public void updateCard(
             @PathVariable String cardId,
-            @RequestBody CreateCardRequest request
+            @RequestBody CardRequest request
     ) {
         cardService.updateCard(cardId, request.getTitle(), request.getDescription(), request.getSection());
     }
