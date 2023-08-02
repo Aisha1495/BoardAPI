@@ -4,6 +4,7 @@ import Models.Board;
 import Models.Card;
 import Response.CardResponse;
 import Service.BoardService;
+import Service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,10 +15,12 @@ import java.util.stream.Collectors;
 @RequestMapping("/api/boards")
 public class BoardController {
     private final BoardService boardService;
+    private final CardService cardService; // Add CardService here
 
     @Autowired
-    public BoardController(BoardService boardService) {
+    public BoardController(BoardService boardService, CardService cardService) {
         this.boardService = boardService;
+        this.cardService = cardService;
     }
 
     @PostMapping
@@ -38,25 +41,12 @@ public class BoardController {
     @DeleteMapping("/{id}")
     public void deleteBoard(@PathVariable String id) {
         boardService.deleteBoard(id);
-
     }
 
-        @GetMapping("/{boardId}/cards")
-        public CardResponse.CardsResponse getCards(@PathVariable String boardId) {
-            List<Card> cards = cardService.getCards(boardId);
-            List<CardResponse> cardResponses = cards.stream()
-                    .map(this::convertToCardResponse)
-                    .collect(Collectors.toList());
-            return new CardResponse.CardsResponse(cardResponses);
-        }
+    // Other methods for BoardController
 
-        private CardResponse convertToCardResponse(Card card) {
-            CardResponse cardResponse = new CardResponse();
-            cardResponse.setId(card.getId());
-            cardResponse.setTitle(card.getTitle());
-            cardResponse.setDescription(card.getDescription());
-            cardResponse.setSection(card.getSection());
-            return cardResponse;
-        }
+    @GetMapping("/{boardId}/cards")
+    public List<Card> getCards(@PathVariable String boardId) {
+        return cardService.getCards(boardId);
     }
-
+}
