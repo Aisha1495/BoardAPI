@@ -7,8 +7,8 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 
 public class CardRequest {
     private String title;
